@@ -34,6 +34,14 @@ When /^I append to "([^\"]*)" with:$/ do |file_name, file_content|
   append_to_file(file_name, file_content)
 end
 
+When /^I append to "([^\"]*)" with "([^\"]*)"$/ do |file_name, file_content|
+  append_to_file(file_name, file_content)
+end
+
+When /^I append to "([^\"]*)" with the line "([^\"]*)"$/ do |file_name, line|
+  append_line_to_file(file_name, line)
+end
+
 When /^I cd to "([^\"]*)"$/ do |dir|
   cd(dir)
 end
@@ -56,6 +64,10 @@ end
 
 Then /^I should not see:$/ do |partial_output|
   combined_output.should_not =~ compile_and_escape(partial_output)
+end
+
+Then /^I should see the line "([^\"]*)"$/ do |partial_output|
+  combined_output.should =~ compile("^#{escape(partial_output)}$")
 end
 
 Then /^I should see exactly "([^\"]*)"$/ do |exact_output|

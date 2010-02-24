@@ -34,6 +34,10 @@ module Api
     end
   end
 
+  def append_line_to_file(file_name, file_content)
+    append_to_file(file_name, "\n#{file_content}")
+  end
+
   def create_dir(dir_name)
     in_current_dir do
       _mkdir(dir_name)
@@ -55,7 +59,15 @@ module Api
   end
 
   def compile_and_escape(string)
-    Regexp.compile(Regexp.escape(string))
+    compile(escape(string))
+  end
+
+  def compile(string)
+    Regexp.compile(string)
+  end
+
+  def escape(string)
+    Regexp.escape(string)
   end
 
   def combined_output
